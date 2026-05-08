@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PetShop - Cuidado e Carinho</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta property="og:image" content="https://bolt.new/static/og_default.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
+</head>
+  <body>
+    <div id="app">
+
+      <!-- NAVBAR -->
+      <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+          <a href="#" class="navbar-brand" data-nav="home">
+            <svg class="paw-icon" viewBox="0 0 512 512" fill="currentColor"><path d="M226.5 92.4c-21.6-1.6-39.8 14.7-41.4 36.3-1.6 21.6 14.7 39.8 36.3 41.4 21.6 1.6 39.8-14.7 41.4-36.3 1.6-21.6-14.7-39.8-36.3-41.4zm-80.2 48.2c-14.1-1-26.3 9.6-27.3 23.7-1 14.1 9.6 26.3 23.7 27.3 14.1 1 26.3-9.6 27.3-23.7 1-14.1-9.6-26.3-23.7-27.3zm-48.6 56c-10.6-.8-19.7 7.2-20.5 17.8-.8 10.6 7.2 19.7 17.8 20.5 10.6.8 19.7-7.2 20.5-17.8.8-10.6-7.2-19.7-17.8-20.5zm312.6 38.3c-.8-10.6-9.9-18.6-20.5-17.8-10.6.8-18.6 9.9-17.8 20.5.8 10.6 9.9 18.6 20.5 17.8 10.6-.8 18.6-9.9 17.8-20.5zm-48.6-56c-1-14.1-13.2-24.7-27.3-23.7-14.1 1-24.7 13.2-23.7 27.3 1 14.1 13.2 24.7 27.3 23.7 14.1-1 24.7-13.2 23.7-27.3zM256 224c-61.9 0-112 50.1-112 112 0 38.2 19.1 72 48 92.5V432c0 26.5 21.5 48 48 48h32c26.5 0 48-21.5 48-48v-3.5c28.9-20.5 48-54.3 48-92.5 0-61.9-50.1-112-112-112z"/></svg>
+            <span>PetShop</span>
+          </a>
+          <div class="navbar-links" id="navbarLinks">
+            <a href="#" class="nav-link active" data-nav="home">Home</a>
+            <a href="#" class="nav-link" data-nav="register-pet" id="navRegisterPet">Cadastrar Pet</a>
+            <a href="#" class="nav-link" data-nav="login" id="navLogin">Entrar</a>
+            <a href="#" class="nav-link" data-nav="register" id="navRegister">Criar Conta</a>
+            <a href="#" class="nav-link nav-user" id="navUser" style="display:none;"></a>
+            <a href="#" class="nav-link nav-logout" id="navLogout" style="display:none;">Sair</a>
+          </div>
+          <button class="navbar-toggle" id="navbarToggle" aria-label="Menu">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </nav>
+
+      <!-- LOADING OVERLAY -->
+      <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner">
+          <svg class="paw-spin" viewBox="0 0 512 512" fill="currentColor"><path d="M226.5 92.4c-21.6-1.6-39.8 14.7-41.4 36.3-1.6 21.6 14.7 39.8 36.3 41.4 21.6 1.6 39.8-14.7 41.4-36.3 1.6-21.6-14.7-39.8-36.3-41.4zm-80.2 48.2c-14.1-1-26.3 9.6-27.3 23.7-1 14.1 9.6 26.3 23.7 27.3 14.1 1 26.3-9.6 27.3-23.7 1-14.1-9.6-26.3-23.7-27.3zm-48.6 56c-10.6-.8-19.7 7.2-20.5 17.8-.8 10.6 7.2 19.7 17.8 20.5 10.6.8 19.7-7.2 20.5-17.8.8-10.6-7.2-19.7-17.8-20.5zm312.6 38.3c-.8-10.6-9.9-18.6-20.5-17.8-10.6.8-18.6 9.9-17.8 20.5.8 10.6 9.9 18.6 20.5 17.8 10.6-.8 18.6-9.9 17.8-20.5zm-48.6-56c-1-14.1-13.2-24.7-27.3-23.7-14.1 1-24.7 13.2-23.7 27.3 1 14.1 13.2 24.7 27.3 23.7 14.1-1 24.7-13.2 23.7-27.3zM256 224c-61.9 0-112 50.1-112 112 0 38.2 19.1 72 48 92.5V432c0 26.5 21.5 48 48 48h32c26.5 0 48-21.5 48-48v-3.5c28.9-20.5 48-54.3 48-92.5 0-61.9-50.1-112-112-112z"/></svg>
+          <p>Carregando...</p>
+        </div>
+      </div>
+
+      <!-- TOAST NOTIFICATION -->
+      <div class="toast-container" id="toastContainer"></div>
+
+      <!-- CONFIRM MODAL -->
+      <div class="modal-overlay" id="confirmModal">
+        <div class="modal-card">
+          <div class="modal-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <h3 class="modal-title" id="confirmTitle">Confirmar</h3>
+          <p class="modal-text" id="confirmText">Tem certeza?</p>
+          <div class="modal-actions">
+            <button class="btn btn-outline" id="confirmCancel">Cancelar</button>
+            <button class="btn btn-danger" id="confirmOk">Confirmar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== SCREENS ==================== -->
+
+      <!-- HOME SCREEN -->
+      <section class="screen active" id="screenHome">
+        <div class="hero-section">
+          <div class="hero-overlay"></div>
+          <div class="hero-content">
+            <div class="paw-prints">
+              <span class="paw-print pp1"></span>
+              <span class="paw-print pp2"></span>
+              <span class="paw-print pp3"></span>
+              <span class="paw-print pp4"></span>
+            </div>
+            <h1>Cuidado e Carinho<br>para seu Pet</h1>
+            <p>Cadastre, gerencie e acompanhe todos os animais do nosso Petshop com amor e dedicação.</p>
+          </div>
+        </div>
+        <div class="container">
+          <div class="section-header">
+            <h2>Nossos Pets</h2>
+            <div class="search-box">
+              <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              <input type="text" id="searchPets" placeholder="Buscar por nome, raça ou dono..." />
+            </div>
+          </div>
+          <div class="pets-grid" id="petsGrid">
+            <!-- Cards rendered by JS -->
+          </div>
+          <div class="empty-state" id="emptyState" style="display:none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <h3>Nenhum pet encontrado</h3>
+            <p>Cadastre o primeiro pet para começar!</p>
+            <button class="btn btn-primary" data-nav="register-pet">Cadastrar Pet</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- REGISTER USER SCREEN -->
+      <section class="screen" id="screenRegister">
+        <div class="auth-bg">
+          <div class="auth-bg-overlay"></div>
+        </div>
+        <div class="auth-container">
+          <div class="auth-card">
+            <div class="auth-header">
+              <svg class="paw-icon-lg" viewBox="0 0 512 512" fill="currentColor"><path d="M226.5 92.4c-21.6-1.6-39.8 14.7-41.4 36.3-1.6 21.6 14.7 39.8 36.3 41.4 21.6 1.6 39.8-14.7 41.4-36.3 1.6-21.6-14.7-39.8-36.3-41.4zm-80.2 48.2c-14.1-1-26.3 9.6-27.3 23.7-1 14.1 9.6 26.3 23.7 27.3 14.1 1 26.3-9.6 27.3-23.7 1-14.1-9.6-26.3-23.7-27.3zm-48.6 56c-10.6-.8-19.7 7.2-20.5 17.8-.8 10.6 7.2 19.7 17.8 20.5 10.6.8 19.7-7.2 20.5-17.8.8-10.6-7.2-19.7-17.8-20.5zm312.6 38.3c-.8-10.6-9.9-18.6-20.5-17.8-10.6.8-18.6 9.9-17.8 20.5.8 10.6 9.9 18.6 20.5 17.8 10.6-.8 18.6-9.9 17.8-20.5zm-48.6-56c-1-14.1-13.2-24.7-27.3-23.7-14.1 1-24.7 13.2-23.7 27.3 1 14.1 13.2 24.7 27.3 23.7 14.1-1 24.7-13.2 23.7-27.3zM256 224c-61.9 0-112 50.1-112 112 0 38.2 19.1 72 48 92.5V432c0 26.5 21.5 48 48 48h32c26.5 0 48-21.5 48-48v-3.5c28.9-20.5 48-54.3 48-92.5 0-61.9-50.1-112-112-112z"/></svg>
+              <h2>Criar Conta</h2>
+              <p>Junte-se ao nosso Petshop</p>
+            </div>
+            <form id="formRegister" novalidate>
+              <div class="form-group">
+                <label for="regName">Nome Completo</label>
+                <div class="input-wrapper">
+                  <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  <input type="text" id="regName" name="name_user" placeholder="Seu nome completo" required />
+                </div>
+                <span class="field-error" id="errRegName"></span>
+              </div>
+              <div class="form-group">
+                <label for="regEmail">Email</label>
+                <div class="input-wrapper">
+                  <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                  <input type="email" id="regEmail" name="email_user" placeholder="seu@email.com" required />
+                </div>
+                <span class="field-error" id="errRegEmail"></span>
+              </div>
+              <div class="form-group">
+                <label for="regLogin">Login</label>
+                <div class="input-wrapper">
+                  <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+                  <input type="text" id="regLogin" name="login_user" placeholder="Seu login" required />
+                </div>
+                <span class="field-error" id="errRegLogin"></span>
+              </div>
+              <div class="form-group">
+                <label for="regPassword">Senha</label>
+                <div class="input-wrapper">
+                  <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                  <input type="password" id="regPassword" name="password_user" placeholder="Crie uma senha" required />
+                  <button type="button" class="toggle-password" data-target="regPassword" aria-label="Mostrar senha">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  </button>
+                </div>
+                <span class="field-error" id="errRegPassword"></span>
+              </div>
+              <div class="form-group">
+                <label for="regAddress">Endereço</label>
+                <div class="input-wrapper">
+                  <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  <input type="text" id="regAddress" name="address_user" placeholder="Seu endereço" />
+                </div>
+                <span class="field-error" id="errRegAddress"></span>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block">Criar Conta</button>
+            </form>
+            <div class="auth-footer">
+              <p>Já tem uma conta? <a href="#" data-nav="login">Faça login</a></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- LOGIN SCREEN -->
+      <section class="screen" id="screenLogin">
+        <div class="auth-bg auth-bg-login">
+          <div class="auth-bg-overlay"></div>
+        </div>
+        <div class="auth-container">
+          <div class="auth-card">
+            <div class="auth-header">
+              <svg class="paw-icon-lg" viewBox="0 0 512 512" fill="currentColor"><path d="M226.5 92.4c-21.6-1.6-39.8 14.7-41.4 36.3-1.6 21.6 14.7 39.8 36.3 41.4 21.6 1.6 39.8-14.7 41.4-36.3 1.6-21.6-14.7-39.8-36.3-41.4zm-80.2 48.2c-14.1-1-26.3 9.6-27.3 23.7-1 14.1 9.6 26.3 23.7 27.3 14.1 1 26.3-9.6 27.3-23.7 1-14.1-9.6-26.3-23.7-27.3zm-48.6 56c-10.6-.8-19.7 7.2-20.5 17.8-.8 10.6 7.2 19.7 17.8 20.5 10.6.8 19.7-7.2 20.5-17.8.8-10.6-7.2-19.7-17.8-20.5zm312.6 38.3c-.8-10.6-9.9-18.6-20.5-17.8-10.6.8-18.6 9.9-17.8 20.5.8 10.6 9.9 18.6 20.5 17.8 10.6-.8 18.6-9.9 17.8-20.5zm-48.6-56c-1-14.1-13.2-24.7-27.3-23.7-14.1 1-24.7 13.2-23.7 27.3 1 14.1 13.2 24.7 27.3 23.7 14.1-1 24.7-13.2 23.7-27.3zM256 224c-61.9 0-112 50.1-112 112 0 38.2 19.1 72 48 92.5V432c0 26.5 21.5 48 48 48h32c26.5 0 48-21.5 48-48v-3.5c28.9-20.5 48-54.3 48-92.5 0-61.9-50.1-112-112-112z"/></svg>
+              <h2>Bem-vindo de Volta</h2>
+              <p>Entre na sua conta</p>
+            </div>
+            <form id="formLogin" novalidate>
+              <div class="form-group">
+                <label for="loginUser">Login</label>
+                <div class="input-wrapper">
+                  <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+                  <input type="text" id="loginUser" name="login_user" placeholder="Seu login" required />
+                </div>
+                <span class="field-error" id="errLoginUser"></span>
+              </div>
+              <div class="form-group">
+                <label for="loginPassword">Senha</label>
+                <div class="input-wrapper">
+                  <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                  <input type="password" id="loginPassword" name="password_user" placeholder="Sua senha" required />
+                  <button type="button" class="toggle-password" data-target="loginPassword" aria-label="Mostrar senha">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  </button>
+                </div>
+                <span class="field-error" id="errLoginPassword"></span>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+            </form>
+            <div class="auth-footer">
+              <p>Não tem conta? <a href="#" data-nav="register">Crie uma conta</a></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- REGISTER PET SCREEN -->
+      <section class="screen" id="screenRegisterPet">
+        <div class="screen-bg">
+          <div class="screen-bg-overlay"></div>
+        </div>
+        <div class="container form-container">
+          <div class="form-card">
+            <div class="form-card-header">
+              <svg class="paw-icon-md" viewBox="0 0 512 512" fill="currentColor"><path d="M226.5 92.4c-21.6-1.6-39.8 14.7-41.4 36.3-1.6 21.6 14.7 39.8 36.3 41.4 21.6 1.6 39.8-14.7 41.4-36.3 1.6-21.6-14.7-39.8-36.3-41.4zm-80.2 48.2c-14.1-1-26.3 9.6-27.3 23.7-1 14.1 9.6 26.3 23.7 27.3 14.1 1 26.3-9.6 27.3-23.7 1-14.1-9.6-26.3-23.7-27.3zm-48.6 56c-10.6-.8-19.7 7.2-20.5 17.8-.8 10.6 7.2 19.7 17.8 20.5 10.6.8 19.7-7.2 20.5-17.8.8-10.6-7.2-19.7-17.8-20.5zm312.6 38.3c-.8-10.6-9.9-18.6-20.5-17.8-10.6.8-18.6 9.9-17.8 20.5.8 10.6 9.9 18.6 20.5 17.8 10.6-.8 18.6-9.9 17.8-20.5zm-48.6-56c-1-14.1-13.2-24.7-27.3-23.7-14.1 1-24.7 13.2-23.7 27.3 1 14.1 13.2 24.7 27.3 23.7 14.1-1 24.7-13.2 23.7-27.3zM256 224c-61.9 0-112 50.1-112 112 0 38.2 19.1 72 48 92.5V432c0 26.5 21.5 48 48 48h32c26.5 0 48-21.5 48-48v-3.5c28.9-20.5 48-54.3 48-92.5 0-61.9-50.1-112-112-112z"/></svg>
+              <h2 id="petFormTitle">Cadastrar Pet</h2>
+              <p id="petFormSubtitle">Preencha os dados do seu pet</p>
+            </div>
+            <form id="formPet" novalidate>
+              <input type="hidden" id="petId" name="id_pet" />
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="petName">Nome do Pet</label>
+                  <div class="input-wrapper">
+                    <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    <input type="text" id="petName" name="name_pet" placeholder="Nome do pet" required />
+                  </div>
+                  <span class="field-error" id="errPetName"></span>
+                </div>
+                <div class="form-group">
+                  <label for="petRace">Raça</label>
+                  <div class="input-wrapper">
+                    <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                    <input type="text" id="petRace" name="race_pet" placeholder="Raça do pet" required />
+                  </div>
+                  <span class="field-error" id="errPetRace"></span>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="petColor">Cor</label>
+                  <div class="input-wrapper">
+                    <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 000 20"/></svg>
+                    <input type="text" id="petColor" name="color_pet" placeholder="Cor do pet" />
+                  </div>
+                  <span class="field-error" id="errPetColor"></span>
+                </div>
+                <div class="form-group">
+                  <label for="petAge">Idade</label>
+                  <div class="input-wrapper">
+                    <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    <input type="text" id="petAge" name="age_pet" placeholder="Ex: 2 anos" required />
+                  </div>
+                  <span class="field-error" id="errPetAge"></span>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="petWeight">Peso (kg)</label>
+                  <div class="input-wrapper">
+                    <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M3 12h18"/></svg>
+                    <input type="number" id="petWeight" name="weight_pet" placeholder="Ex: 5.5" step="0.1" />
+                  </div>
+                  <span class="field-error" id="errPetWeight"></span>
+                </div>
+                <div class="form-group">
+                  <label for="petOwner">Dono</label>
+                  <div class="input-wrapper">
+                    <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    <input type="text" id="petOwner" name="owner_pet" placeholder="Nome do dono" required />
+                  </div>
+                  <span class="field-error" id="errPetOwner"></span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="petObs">Observações</label>
+                <div class="input-wrapper textarea-wrapper">
+                  <textarea id="petObs" name="obs" placeholder="Observações sobre o pet..." rows="3"></textarea>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Foto do Pet</label>
+                <div class="upload-area" id="uploadArea">
+                  <div class="upload-preview" id="uploadPreview" style="display:none;">
+                    <img id="previewImg" alt="Preview" />
+                    <button type="button" class="upload-remove" id="uploadRemove" aria-label="Remover foto">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                  </div>
+                  <div class="upload-placeholder" id="uploadPlaceholder">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                    <p>Clique ou arraste a foto aqui</p>
+                    <span>JPG, PNG (max 5MB)</span>
+                  </div>
+                  <input type="file" id="petPicture" name="picture_pet" accept="image/*" style="display:none;" />
+                </div>
+              </div>
+              <div class="form-actions">
+                <button type="button" class="btn btn-outline" data-nav="home">Cancelar</button>
+                <button type="submit" class="btn btn-primary" id="btnSavePet">Salvar Pet</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- PET DETAILS SCREEN -->
+      <section class="screen" id="screenPetDetail">
+        <div class="detail-bg" id="detailBg">
+          <div class="detail-bg-overlay"></div>
+        </div>
+        <div class="container detail-container">
+          <div class="detail-card">
+            <button class="btn-back" data-nav="home" aria-label="Voltar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+              Voltar
+            </button>
+            <div class="detail-layout">
+              <div class="detail-photo">
+                <div class="detail-photo-frame">
+                  <img id="detailPhoto" alt="Foto do pet" />
+                </div>
+                <div class="detail-paw-prints">
+                  <span class="paw-print dp1"></span>
+                  <span class="paw-print dp2"></span>
+                </div>
+              </div>
+              <div class="detail-info">
+                <h1 class="detail-name" id="detailName"></h1>
+                <div class="detail-badges">
+                  <span class="badge" id="detailRace"></span>
+                  <span class="badge" id="detailColor"></span>
+                </div>
+                <div class="detail-grid">
+                  <div class="detail-item">
+                    <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    <div>
+                      <span class="detail-label">Idade</span>
+                      <span class="detail-value" id="detailAge"></span>
+                    </div>
+                  </div>
+                  <div class="detail-item">
+                    <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M3 12h18"/></svg>
+                    <div>
+                      <span class="detail-label">Peso</span>
+                      <span class="detail-value" id="detailWeight"></span>
+                    </div>
+                  </div>
+                  <div class="detail-item">
+                    <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    <div>
+                      <span class="detail-label">Dono</span>
+                      <span class="detail-value" id="detailOwner"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="detail-obs" id="detailObsSection" style="display:none;">
+                  <h3>Observações</h3>
+                  <p id="detailObs"></p>
+                </div>
+                <div class="detail-actions">
+                  <button class="btn btn-primary" id="detailEditBtn">Editar</button>
+                  <button class="btn btn-danger-outline" id="detailDeleteBtn">Excluir</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
